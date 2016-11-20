@@ -4,6 +4,7 @@ MAINTAINER pcxd
 # Install base packages
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get -yq install \
+        ssmtp \
         curl \
         apache2 \
         libapache2-mod-php5 \
@@ -20,6 +21,9 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
     sed -i "s/variables_order.*/variables_order = \"EGPCS\"/g" /etc/php5/apache2/php.ini
 
 ENV ALLOW_OVERRIDE **False**
+
+ADD ssmtp.conf /etc/ssmtp/ssmtp.conf
+ADD php-smtp.ini /usr/local/etc/php/conf.d/php-smtp.ini
 
 # Add image configuration and scripts
 ADD run.sh /run.sh
