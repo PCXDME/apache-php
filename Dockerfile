@@ -18,7 +18,10 @@ RUN apt-get update && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN /usr/sbin/php5enmod mcrypt
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
-    sed -i "s/variables_order.*/variables_order = \"EGPCS\"/g" /etc/php5/apache2/php.ini
+    sed -i "s/variables_order.*/variables_order = \"EGPCS\"/g" /etc/php5/apache2/php.ini && \
+    sed -i "s/upload_max_filesize.*/upload_max_filesize = 32M/g" /etc/php5/apache2/php.ini && \
+    sed -i "s/post_max_size.*/post_max_size = 32M/g" /etc/php5/apache2/php.ini && \
+    sed -i "s/max_execution_time.*/max_execution_time = 300/g" /etc/php5/apache2/php.ini
 
 ENV ALLOW_OVERRIDE **False**
 
